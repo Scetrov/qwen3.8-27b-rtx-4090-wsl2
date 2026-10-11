@@ -1,0 +1,31 @@
+prometheus.scrape "llama_cpp" {
+  targets = [
+    {
+      "__address__" = "127.0.0.1:9931",
+      "job"         = "llama_cpp",
+      "instance"    = "qwen-4090",
+      "model"       = "qwen3.8-27b",
+    },
+  ]
+
+  scrape_interval = "10s"
+  metrics_path    = "/metrics"
+
+  bearer_token_file = "/home/scetrov/source/qwen3.8/secrets/llama-api-key.txt"
+
+  forward_to = [
+    prometheus.remote_write.scetrov.receiver,
+  ]
+}
+
+prometheus.remote_write "scetrov" {
+  endpoint {
+    url = "https://metrics.net.scetrov.live/mimir/api/v1/push"
+
+    basic_auth {
+      username = "metric-writer"
+      password_file = "/home/scetrov/source/qwen3.8/secrets/metrics-token.txt"
+    }
+  }
+}
+

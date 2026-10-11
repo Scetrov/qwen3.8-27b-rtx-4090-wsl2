@@ -1,0 +1,18 @@
+procs:
+  qwen:
+    shell: "scripts/start-qwen.sh"
+    stop: SIGTERM
+    autorestart: true
+
+  alloy:
+    cmd:
+      - alloy
+      - run
+      - --storage.path=./alloy/data
+      - ./alloy/config.alloy
+    stop: SIGTERM
+    autorestart: true
+
+proc_list_width: 25
+scrollback: 5000
+
