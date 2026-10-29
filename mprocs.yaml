@@ -4,6 +4,13 @@ procs:
     stop: SIGTERM
     autorestart: true
 
+  cloudflared:
+    cmd:
+      - bash
+      - scripts/start-tunnel.sh
+    stop: SIGTERM
+    autorestart: true
+
   alloy:
     cmd:
       - alloy

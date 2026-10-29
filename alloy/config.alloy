@@ -18,6 +18,26 @@ prometheus.scrape "llama_cpp" {
   ]
 }
 
+prometheus.scrape "nvidia_gpu" {
+  targets = [{
+    "__address__" = "127.0.0.1:9835",
+    "job"         = "nvidia_gpu",
+    "instance"    = "qwen-4090",
+  }]
+  scrape_interval = "10s"
+  forward_to      = [prometheus.remote_write.scetrov.receiver]
+}
+
+prometheus.scrape "cloudflared" {
+  targets = [{
+    "__address__" = "127.0.0.1:60123",
+    "job"         = "cloudflared",
+    "instance"    = "qwen-4090",
+  }]
+  scrape_interval = "10s"
+  forward_to      = [prometheus.remote_write.scetrov.receiver]
+}
+
 prometheus.remote_write "scetrov" {
   endpoint {
     url = "https://metrics.net.scetrov.live/mimir/api/v1/push"

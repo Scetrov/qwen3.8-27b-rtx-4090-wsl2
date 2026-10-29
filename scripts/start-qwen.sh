@@ -9,7 +9,7 @@ exec ../llama.cpp/build/bin/llama-server \
   --port 9931 \
   --n-gpu-layers all \
   --parallel 1 \
-  --ctx-size 65536 \
+  --ctx-size 126976 \
   --flash-attn on \
   --cache-type-k q8_0 \
   --cache-type-v q8_0 \
